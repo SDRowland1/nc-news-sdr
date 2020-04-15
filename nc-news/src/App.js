@@ -10,7 +10,7 @@ import SingleArticle from "./components/SingleArticle";
 import Comments from "./components/Comments";
 
 class App extends Component {
-  state = { user: "rogersop" };
+  state = { user: "weegembump" };
   render() {
     return (
       <div className="App">
@@ -21,10 +21,13 @@ class App extends Component {
         </header>
         <Router>
           <HomeTopics path="/" />
-          <ArticlesList path="/articles/all" />
-          <ArticlesList path="/articles/:slug" />
-          <SingleArticle path="/articles/:slug/:article_id" />
-          <Comments path="/articles/:article_id/comments" />
+          <ArticlesList path="/articles" />
+          <ArticlesList path="/topics/:slug" />
+          <SingleArticle path="/articles/:article_id" />
+          <Comments
+            user={this.state.user}
+            path="/articles/:article_id/comments"
+          />
         </Router>
       </div>
     );

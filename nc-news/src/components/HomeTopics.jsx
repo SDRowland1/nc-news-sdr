@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as api from "../utils/api";
 import Loader from "./Loader";
 import { Link } from "@reach/router";
+import Voter from "../components/Voter";
 
 class HomeTopics extends Component {
   state = {
@@ -23,19 +24,19 @@ class HomeTopics extends Component {
       body,
       created_at,
       title,
-
+      article_id,
       votes,
     } = this.state.homeArticle;
     if (this.state.isLoading) return <Loader />;
     return (
       <div className="HomeTopics">
         <ul className="topicList">
-          <Link to="/articles/all">
+          <Link to="/articles">
             <li key="allArticles">all articles</li>
           </Link>
           {this.state.topics.map((topic) => {
             return (
-              <Link key={topic.slug} to={`/articles/${topic.slug}`}>
+              <Link key={topic.slug} to={`/topics/${topic.slug}`}>
                 {" "}
                 <li key={topic.slug}>{topic.slug}</li>
               </Link>
@@ -49,10 +50,8 @@ class HomeTopics extends Component {
 
           <p>{body}</p>
           <p>Date Published: {created_at}</p>
-          <p>
-            Votes: {votes} <input type="checkbox" />
-            <input type="checkbox" />
-          </p>
+
+          <Voter votes={votes} id={article_id} />
         </main>
       </div>
     );

@@ -3,6 +3,7 @@ import * as api from "../utils/api";
 import Loader from "./Loader";
 import NavBar from "./NavBar";
 import { Link } from "@reach/router";
+import Voter from "./Voter";
 
 class SingleArticle extends Component {
   state = {
@@ -34,10 +35,9 @@ class SingleArticle extends Component {
 
           <p>{body}</p>
           <p>Date Published: {created_at}</p>
-          <p>
-            Votes: {votes} <input type="checkbox" />
-            <input type="checkbox" />
-          </p>
+
+          <Voter votes={votes} id={article_id} />
+
           <Link to={`/articles/${article_id}/comments`}>
             <p>Comments: {comment_count}</p>
           </Link>

@@ -12,13 +12,13 @@ class NavBar extends Component {
   render() {
     return (
       <div className="NavBar">
-        <ul key="Nav" className="NavTopics">
-          <Link to="/articles/all">
+        <ul className="NavTopics">
+          <Link to="/articles">
             <li>all articles</li>
           </Link>
           {this.state.topics.map((topic) => {
             return (
-              <Link to={`/articles/${topic.slug}`}>
+              <Link key={topic.slug} to={`/topics/${topic.slug}`}>
                 {" "}
                 <li key={topic.slug}>{topic.slug}</li>
               </Link>
