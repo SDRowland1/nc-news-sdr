@@ -9,7 +9,6 @@ export const fetchTopics = async () => {
   return data.topics;
 };
 export const fetchArticles = async (slug, sort_by, order) => {
-  console.log(sort_by, order);
   const { data } = await request.get("/articles", {
     params: { topic: slug, sort_by, order },
   });
@@ -38,12 +37,23 @@ export const patchArticle = async (article_id, votes) => {
   });
   return data;
 };
+export const patchComment = async (comment_id, votes) => {
+  const { data } = await request.patch(`/comments/${comment_id}`, {
+    inc_votes: votes,
+  });
+  return data;
+};
 
-export const postComment = async (article_id, username, body) => {
-  const { data } = await request.post(`/articles/${article_id}/comments`, {
+export const postComment = async (comment_id, username, body) => {
+  const { data } = await request.post(`/articles/${comment_id}/comments`, {
     username,
     body,
   });
   console.log(data);
   return data;
+};
+
+export const deleteComment = async (comment_id) => {
+  const { data } = await request.delete(`/comments/${comment_id}`);
+  console.log(data);
 };

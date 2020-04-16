@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as api from "../utils/api";
 import Loader from "./Loader";
 import { Link } from "@reach/router";
-import Voter from "../components/Voter";
+import ArticleVoter from "./ArticleVoter";
 
 class HomeTopics extends Component {
   state = {
@@ -51,7 +51,7 @@ class HomeTopics extends Component {
           <p>{body}</p>
           <p>Date Published: {created_at}</p>
 
-          <Voter votes={votes} id={article_id} />
+          <ArticleVoter votes={votes} id={article_id} />
         </main>
       </div>
     );

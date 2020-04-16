@@ -8,6 +8,7 @@ import { Router } from "@reach/router";
 import Home from "./components/Home";
 import SingleArticle from "./components/SingleArticle";
 import Comments from "./components/Comments";
+import ErrorHandler from "./components/ErrorHandler";
 
 class App extends Component {
   state = { user: "weegembump" };
@@ -24,6 +25,7 @@ class App extends Component {
           <ArticlesList path="/articles" />
           <ArticlesList path="/topics/:slug" />
           <SingleArticle path="/articles/:article_id" />
+          <ErrorHandler default />
           <Comments
             user={this.state.user}
             path="/articles/:article_id/comments"

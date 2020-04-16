@@ -1,46 +1,33 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
 import Loader from "./Loader";
-import Voter from "./Voter";
+import CommentVoter from "./CommentVoter";
 import { Link } from "@reach/router";
+import PostComment from "./PostComment";
+import DeleteComment from "./DeleteComment";
+import ErrorHandler from "./ErrorHandler";
 
 class Comments extends Component {
-  state = { comments: [], isLoading: true, inputComment: "" };
+  state = { comments: [], isLoading: true, err: null };
+
   componentDidMount() {
     this.getComments();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.comments.length !== this.state.comments.length)
-      this.getComments();
-  }
-
-  getComments = () => {
-    api.fetchCommentsFromArticle(this.props.article_id).then((comments) => {
-      this.setState({ comments, isLoading: false }, () => {});
-    });
-  };
   render() {
+    const { err } = this.state;
+    if (err) return <ErrorHandler error={err} />;
     if (this.state.isLoading) return <Loader />;
     return (
       <div>
-        <Link to={`/articles/${this.state.comments[0].article_id}`}>
-          {" "}
-          Back to article!
-        </Link>{" "}
-        <form onSubmit={this.postComment}>
-          <input type="text" onChange={this.handleChange} />{" "}
-          <button type="submit"> post!</button>
-        </form>
+        <Link to={`/articles/${this.props.article_id}`}> Back to article!</Link>{" "}
+        <PostComment
+          user={this.props.user}
+          article_id={this.props.article_id}
+          addComment={this.addComment}
+        />
         {this.state.comments.map((comment) => {
-          const {
-            author,
-            created_at,
-            body,
-            votes,
-            comment_id,
-            article_id,
-          } = comment;
+          const { author, created_at, body, votes, comment_id } = comment;
           return (
             <ul key={comment_id} className="Comment">
               <li>
@@ -49,25 +36,48 @@ class Comments extends Component {
 
               <li>{body}</li>
               <li>
-                <Voter votes={votes} id={article_id} />
+                <CommentVoter votes={votes} id={comment_id} />
               </li>
               <li>date created: {created_at}</li>
-              {this.props.user === author && <button>Delete</button>}
+              {this.props.user === author && (
+                <DeleteComment
+                  id={comment_id}
+                  deletedComment={this.deletedComment}
+                />
+              )}
             </ul>
           );
         })}
       </div>
     );
   }
-  postComment = (event) => {
-    const { article_id, user } = this.props;
-    const body = event.target.children[0].value;
-
-    event.preventDefault();
-    api.postComment(article_id, user, body);
+  getComments = () => {
+    api
+      .fetchCommentsFromArticle(this.props.article_id)
+      .then((comments) => {
+        this.setState({ comments, isLoading: false }, () => {});
+      })
+      .catch((err) => {
+        this.setState({ err });
+      });
   };
-  handleChange = (event) => {
-    this.setState({ inputComment: event.target.value }, () => {});
+  deletedComment = (comment_id) => {
+    this.setState((currentState) => {
+      const filteredComments = [];
+      currentState.comments.forEach((comment) => {
+        if (comment.comment_id !== comment_id) {
+          filteredComments.push(comment);
+        }
+      });
+
+      return { comments: filteredComments };
+    });
+  };
+  addComment = (newComment) => {
+    this.setState((currentState) => {
+      return { comments: [...currentState.comments, newComment] };
+    });
+    this.getComments();
   };
 }
 

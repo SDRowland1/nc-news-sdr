@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
 
-class Voter extends Component {
+class CommentVoter extends Component {
   state = {
     optiVotes: 0,
   };
@@ -29,8 +29,8 @@ class Voter extends Component {
     this.setState((currentState) => {
       return { optiVotes: currentState.optiVotes + votes };
     });
-    api.patchArticle(this.props.id, votes);
+    api.patchComment(this.props.id, votes);
   };
 }
 
-export default Voter;
+export default CommentVoter;

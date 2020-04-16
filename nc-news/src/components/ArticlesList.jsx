@@ -2,13 +2,17 @@ import React, { Component } from "react";
 import * as api from "../utils/api";
 import NavBar from "./NavBar";
 import { Link } from "@reach/router";
-import Voter from "./Voter";
+import ArticleVoter from "./ArticleVoter";
+import ErrorHandler from "./ErrorHandler";
+import Loader from "./Loader";
 
 class ArticlesList extends Component {
   state = {
     articles: [],
     sort_by: "created_at",
     order: "asc",
+    err: null,
+    isLoading: true,
   };
   componentDidMount() {
     console.log(this.props);
@@ -19,9 +23,14 @@ class ArticlesList extends Component {
   }
   getArticles = () => {
     const { sort_by, order } = this.state;
-    api.fetchArticles(this.props.slug, sort_by, order).then((articles) => {
-      this.setState({ articles });
-    });
+    api
+      .fetchArticles(this.props.slug, sort_by, order)
+      .then((articles) => {
+        this.setState({ articles, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({ err });
+      });
   };
   changeSortBy = (event) => {
     this.setState({ sort_by: event.target.value }, () => {
@@ -34,6 +43,9 @@ class ArticlesList extends Component {
     });
   };
   render() {
+    const { isLoading, err } = this.state;
+    if (err) return <ErrorHandler error={err} />;
+    if (isLoading) return <Loader />;
     return (
       <div className="ArticlesList">
         <NavBar />
@@ -65,7 +77,7 @@ class ArticlesList extends Component {
                 <li>topic: {topic}</li>
                 <li>author: {author}</li>
                 <li>
-                  <Voter votes={votes} id={article_id} />{" "}
+                  <ArticleVoter votes={votes} id={article_id} />{" "}
                 </li>
                 <li>created at: {created_at}</li>
                 <li>comments: {comment_count}</li>
