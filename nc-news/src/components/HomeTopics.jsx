@@ -31,12 +31,16 @@ class HomeTopics extends Component {
     return (
       <div className="HomeTopics">
         <ul className="topicList">
-          <Link to="/articles">
+          <Link className="TopicLinks" to="/articles">
             <li key="allArticles">all articles</li>
           </Link>
           {this.state.topics.map((topic) => {
             return (
-              <Link key={topic.slug} to={`/topics/${topic.slug}`}>
+              <Link
+                className="TopicLinks"
+                key={topic.slug}
+                to={`/topics/${topic.slug}`}
+              >
                 {" "}
                 <li key={topic.slug}>{topic.slug}</li>
               </Link>

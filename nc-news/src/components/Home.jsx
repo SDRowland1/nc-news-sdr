@@ -4,7 +4,7 @@ import { Link } from "@reach/router";
 const Home = () => {
   return (
     <div className="Home">
-      <Link to="/">
+      <Link className="HomeLink" to="/">
         <p>Home</p>
       </Link>
     </div>
