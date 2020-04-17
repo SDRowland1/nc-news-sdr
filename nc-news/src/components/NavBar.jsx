@@ -14,11 +14,15 @@ class NavBar extends Component {
       <div className="NavBar">
         <ul className="NavTopics">
           <Link to="/articles">
-            <li>all articles</li>
+            <li className="SingleNav">all articles</li>
           </Link>
           {this.state.topics.map((topic) => {
             return (
-              <Link key={topic.slug} to={`/topics/${topic.slug}`}>
+              <Link
+                className="SingleNav"
+                key={topic.slug}
+                to={`/topics/${topic.slug}`}
+              >
                 {" "}
                 <li key={topic.slug}>{topic.slug}</li>
               </Link>

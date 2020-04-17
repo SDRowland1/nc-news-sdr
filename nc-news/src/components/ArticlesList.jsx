@@ -72,7 +72,9 @@ class ArticlesList extends Component {
             return (
               <ul key={article_id} className="article">
                 <Link to={`/articles/${article.article_id}`}>
-                  <li>title: {title}</li>
+                  <li>
+                    <h3>{title}</h3>
+                  </li>
                 </Link>
                 <li>topic: {topic}</li>
                 <li>author: {author}</li>

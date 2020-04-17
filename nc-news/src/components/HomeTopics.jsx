@@ -48,7 +48,7 @@ class HomeTopics extends Component {
           })}
         </ul>
         <main>
-          <h3>Developers Pick!</h3>
+          <h2>Developers Pick!</h2>
           <h3>{title}</h3>
           <p>Written by: {author}</p>
 

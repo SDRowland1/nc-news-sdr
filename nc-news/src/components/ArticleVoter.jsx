@@ -11,12 +11,14 @@ class ArticleVoter extends Component {
       <div>
         <p>current votes: {this.props.votes + this.state.optiVotes}</p>
         <button
+          className="UpVote"
           onClick={() => this.handleClick(1)}
           disabled={this.state.optiVotes > 0}
         >
           up
         </button>
         <button
+          className="DownVote"
           onClick={() => this.handleClick(-1)}
           disabled={this.state.optiVotes < 0}
         >
