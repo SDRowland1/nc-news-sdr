@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as api from "../utils/api";
 import NavBar from "./NavBar";
 import { Link } from "@reach/router";
-import ArticleVoter from "./ArticleVoter";
+import Voter from "./Voter";
 import ErrorHandler from "./ErrorHandler";
 import Loader from "./Loader";
 
@@ -15,7 +15,6 @@ class ArticlesList extends Component {
     isLoading: true,
   };
   componentDidMount() {
-    console.log(this.props);
     this.getArticles();
   }
   componentDidUpdate(prevProps) {
@@ -45,20 +44,28 @@ class ArticlesList extends Component {
   render() {
     const { isLoading, err } = this.state;
     if (err) return <ErrorHandler error={err} />;
-    if (isLoading) return <Loader />;
+
     return (
       <div className="ArticlesList">
         <NavBar />
+        {isLoading && <Loader />}
         <div className="main">
-          <select onChange={this.changeSortBy} value={this.state.sort_by}>
-            <option value="created_at">date posted</option>
-            <option value="votes">votes</option>
-            <option value="comment_count"> amount of comments</option>
-          </select>
-          <select onChange={this.changeOrder} value={this.state.order}>
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-          </select>{" "}
+          <label>
+            {" "}
+            Sort By:
+            <select onChange={this.changeSortBy} value={this.state.sort_by}>
+              <option value="created_at">date posted</option>
+              <option value="votes">votes</option>
+              <option value="comment_count"> amount of comments</option>
+            </select>
+          </label>
+          <label>
+            Order By:
+            <select onChange={this.changeOrder} value={this.state.order}>
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
+            </select>
+          </label>
           {this.state.articles.map((article) => {
             const {
               article_id,
@@ -79,7 +86,7 @@ class ArticlesList extends Component {
                 <li>topic: {topic}</li>
                 <li>author: {author}</li>
                 <li>
-                  <ArticleVoter votes={votes} id={article_id} />{" "}
+                  <Voter votes={votes} id={article_id} type="article" />{" "}
                 </li>
                 <li>created at: {created_at}</li>
                 <li>comments: {comment_count}</li>

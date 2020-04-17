@@ -7,7 +7,7 @@ import ArticlesList from "./components/ArticlesList";
 import { Router } from "@reach/router";
 import Home from "./components/Home";
 import SingleArticle from "./components/SingleArticle";
-import Comments from "./components/Comments";
+
 import ErrorHandler from "./components/ErrorHandler";
 
 class App extends Component {
@@ -24,12 +24,11 @@ class App extends Component {
           <HomeTopics path="/" />
           <ArticlesList path="/articles" />
           <ArticlesList path="/topics/:slug" />
-          <SingleArticle path="/articles/:article_id" />
-          <ErrorHandler default />
-          <Comments
+          <SingleArticle
+            path="/articles/:article_id/*"
             user={this.state.user}
-            path="/articles/:article_id/comments"
           />
+          <ErrorHandler default />
         </Router>
       </div>
     );

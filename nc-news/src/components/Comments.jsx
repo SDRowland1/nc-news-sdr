@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
 import Loader from "./Loader";
-import CommentVoter from "./CommentVoter";
-import { Link } from "@reach/router";
+import Voter from "./Voter";
+
 import PostComment from "./PostComment";
 import DeleteComment from "./DeleteComment";
 import ErrorHandler from "./ErrorHandler";
@@ -20,7 +20,6 @@ class Comments extends Component {
     if (this.state.isLoading) return <Loader />;
     return (
       <div>
-        <Link to={`/articles/${this.props.article_id}`}> Back to article!</Link>{" "}
         <PostComment
           user={this.props.user}
           article_id={this.props.article_id}
@@ -36,7 +35,7 @@ class Comments extends Component {
 
               <li>{body}</li>
               <li>
-                <CommentVoter votes={votes} id={comment_id} />
+                <Voter votes={votes} id={comment_id} type="comment" />
               </li>
               <li>date created: {created_at}</li>
               {this.props.user === author && (

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as api from "../utils/api";
 
-class ArticleVoter extends Component {
+class Voter extends Component {
   state = {
     optiVotes: 0,
   };
@@ -15,6 +15,7 @@ class ArticleVoter extends Component {
           onClick={() => this.handleClick(1)}
           disabled={this.state.optiVotes > 0}
         >
+          {" "}
           up
         </button>
         <button
@@ -28,11 +29,16 @@ class ArticleVoter extends Component {
     );
   }
   handleClick = (votes) => {
+    const { type } = this.props;
     this.setState((currentState) => {
       return { optiVotes: currentState.optiVotes + votes };
     });
-    api.patchArticle(this.props.id, votes);
+    if (type === "article") {
+      api.patchArticle(this.props.id, votes);
+    } else {
+      api.patchComment(this.props.id, votes, type);
+    }
   };
 }
 
-export default ArticleVoter;
+export default Voter;

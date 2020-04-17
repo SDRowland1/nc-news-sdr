@@ -49,7 +49,7 @@ export const postComment = async (comment_id, username, body) => {
     username,
     body,
   });
-  console.log(data);
+
   return data;
 };
 

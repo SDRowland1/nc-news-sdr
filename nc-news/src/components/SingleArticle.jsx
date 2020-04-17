@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import * as api from "../utils/api";
 import Loader from "./Loader";
 import NavBar from "./NavBar";
-import { Link } from "@reach/router";
-import ArticleVoter from "./ArticleVoter";
+import { Link, Router } from "@reach/router";
+import Voter from "./Voter";
 import ErrorHandler from "./ErrorHandler";
+import Comments from "./Comments";
 
 class SingleArticle extends Component {
   state = {
@@ -34,22 +35,26 @@ class SingleArticle extends Component {
     } = this.state.article;
     const { isLoading, err } = this.state;
     if (err) return <ErrorHandler error={err} />;
-    if (isLoading) return <Loader />;
+
     return (
       <div className="SingleArticle">
         <NavBar />
         <div className="main">
+          {isLoading && <Loader />}
           <h2>{title}</h2>
           <p>Written by: {author}</p>
 
           <p>{body}</p>
           <p>Date Published: {created_at}</p>
 
-          <ArticleVoter votes={votes} id={article_id} />
+          <Voter votes={votes} id={article_id} type="article" />
 
           <Link to={`/articles/${article_id}/comments`}>
             <p>Comments: {comment_count}</p>
           </Link>
+          <Router>
+            <Comments path="/comments" user={this.props.user} />
+          </Router>
         </div>
       </div>
     );

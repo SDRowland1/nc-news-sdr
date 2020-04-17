@@ -13,8 +13,8 @@ class NavBar extends Component {
     return (
       <div className="NavBar">
         <ul className="NavTopics">
-          <Link to="/articles">
-            <li className="SingleNav">all articles</li>
+          <Link to="/articles" className="SingleNav">
+            <li>all articles</li>
           </Link>
           {this.state.topics.map((topic) => {
             return (

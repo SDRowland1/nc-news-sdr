@@ -10,7 +10,7 @@ class DeleteComment extends Component {
         {!this.state.isDeleted ? (
           <button onClick={this.removeComment}>Delete Comment</button>
         ) : (
-          <p>Deleteting...</p>
+          <p>Deleting...</p>
         )}
       </div>
     );
