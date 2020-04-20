@@ -3,6 +3,7 @@ import * as api from "../utils/api";
 import Loader from "./Loader";
 import { Link } from "@reach/router";
 import Voter from "./Voter";
+import ReactTimeAgo from "react-time-ago";
 
 class HomeTopics extends Component {
   state = {
@@ -53,7 +54,9 @@ class HomeTopics extends Component {
           <p>Written by: {author}</p>
 
           <p>{body}</p>
-          <p>Date Published: {created_at}</p>
+          <p>
+            Date Published: {created_at && <ReactTimeAgo date={created_at} />}
+          </p>
 
           <Voter votes={votes} id={article_id} type="article" />
         </main>
