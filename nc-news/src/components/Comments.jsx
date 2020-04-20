@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as api from "../utils/api";
 import Loader from "./Loader";
 import Voter from "./Voter";
-
+import ReactTimeAgo from "react-time-ago";
 import PostComment from "./PostComment";
 import DeleteComment from "./DeleteComment";
 import ErrorHandler from "./ErrorHandler";
@@ -37,7 +37,11 @@ class Comments extends Component {
               <li>
                 <Voter votes={votes} id={comment_id} type="comment" />
               </li>
-              <li>date created: {created_at}</li>
+              <li>
+                {" "}
+                Date Published:{" "}
+                {created_at && <ReactTimeAgo date={created_at} />}
+              </li>
               {this.props.user === author && (
                 <DeleteComment
                   id={comment_id}

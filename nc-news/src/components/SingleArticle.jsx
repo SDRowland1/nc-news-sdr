@@ -6,6 +6,7 @@ import { Link, Router } from "@reach/router";
 import Voter from "./Voter";
 import ErrorHandler from "./ErrorHandler";
 import Comments from "./Comments";
+import ReactTimeAgo from "react-time-ago";
 
 class SingleArticle extends Component {
   state = {
@@ -45,7 +46,9 @@ class SingleArticle extends Component {
           <p>Written by: {author}</p>
 
           <p>{body}</p>
-          <p>Date Published: {created_at}</p>
+          <p>
+            Date Published: {created_at && <ReactTimeAgo date={created_at} />}
+          </p>
 
           <Voter votes={votes} id={article_id} type="article" />
 

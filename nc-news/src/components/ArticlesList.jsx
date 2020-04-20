@@ -5,6 +5,7 @@ import { Link } from "@reach/router";
 import Voter from "./Voter";
 import ErrorHandler from "./ErrorHandler";
 import Loader from "./Loader";
+import ReactTimeAgo from "react-time-ago";
 
 class ArticlesList extends Component {
   state = {
@@ -74,7 +75,6 @@ class ArticlesList extends Component {
               author,
               votes,
               created_at,
-              comment_count,
             } = article;
             return (
               <ul key={article_id} className="article">
@@ -87,12 +87,11 @@ class ArticlesList extends Component {
                   </li>
                 </Link>
                 <li>topic: {topic}</li>
-                <li>author: {author}</li>
+                <li>by: {author} Date Published: </li>
+                <li>{created_at && <ReactTimeAgo date={created_at} />}</li>
                 <li>
                   <Voter votes={votes} id={article_id} type="article" />{" "}
                 </li>
-                <li>created at: {created_at}</li>
-                <li>comments: {comment_count}</li>
               </ul>
             );
           })}
