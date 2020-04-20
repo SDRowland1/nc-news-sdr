@@ -4,8 +4,8 @@ import User from "./components/User";
 import "./App.css";
 import HomeTopics from "./components/HomeTopics";
 import ArticlesList from "./components/ArticlesList";
-import { Router } from "@reach/router";
-import Home from "./components/Home";
+import { Router, Link } from "@reach/router";
+
 import SingleArticle from "./components/SingleArticle";
 
 import ErrorHandler from "./components/ErrorHandler";
@@ -16,8 +16,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="HeaderComps">
-          <Home />
-          <Header />
+          <Link className="HeaderLink" to="/">
+            <Header />
+          </Link>
           <User username={this.state.user} />
         </header>
         <Router>
