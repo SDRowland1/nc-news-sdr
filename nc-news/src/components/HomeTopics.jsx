@@ -14,9 +14,10 @@ class HomeTopics extends Component {
 
   componentDidMount() {
     api.fetchHomeScreenArticle().then((article) => {
-      api.fetchTopics().then((topics) => {
-        this.setState({ topics, homeArticle: article, isLoading: false });
-      });
+      this.setState({ homeArticle: article });
+    });
+    api.fetchTopics().then((topics) => {
+      this.setState({ topics, isLoading: false });
     });
   }
   render() {

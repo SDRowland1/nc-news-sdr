@@ -54,7 +54,11 @@ class ArticlesList extends Component {
           <label>
             {" "}
             Sort By:
-            <select onChange={this.changeSortBy} value={this.state.sort_by}>
+            <select
+              className="Select"
+              onChange={this.changeSortBy}
+              value={this.state.sort_by}
+            >
               <option value="created_at">date posted</option>
               <option value="votes">votes</option>
               <option value="comment_count"> amount of comments</option>
@@ -62,7 +66,11 @@ class ArticlesList extends Component {
           </label>
           <label>
             Order By:
-            <select onChange={this.changeOrder} value={this.state.order}>
+            <select
+              className="Select"
+              onChange={this.changeOrder}
+              value={this.state.order}
+            >
               <option value="asc">Ascending</option>
               <option value="desc">Descending</option>
             </select>
